@@ -20,9 +20,9 @@ function show() {
          <br />
          Verdi:
          <input type="number" min="1" max="10" oninput="inputValue = this.value" />
-         <button>Legg til stolpe</button>
+         <button onclick="addBar(inputValue)">Legg til stolpe</button>
          <button disabled>Endre valgt stolpe</button><br />
-         <button disabled>Fjerne valgt stolpe</button>
+         <button onclick="removeBar(2)">Fjerne valgt stolpe</button>
          `;
 }
 
@@ -46,4 +46,18 @@ function calcColor(min, max, val) {
   return colString;
 }
 
-// controller (ingenting her ennå)
+// controller
+function addBar(val) {
+  parsed = parseInt(val);
+  numbers.push(parsed);
+  console.log(numbers);
+  show();
+}
+function removeBar(val) {
+  let i = parseInt(val);
+  let filtered = numbers.filter((item) => item !== i);
+  numbers = filtered;
+  console.log(filtered);
+  show();
+  //   numbers.slice(item);
+}
