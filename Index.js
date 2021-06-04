@@ -7,9 +7,6 @@ let chosenBar; // Variabel for hvilken stolpe som er valgt
 let inputValue; // Variabel for hva som er skrevet i input-feltet
 let borderCol;
 
-// const buttonEdit = document.getElementById("btnEdit");
-// const buttonRemove = document.querySelector("btnRemove");
-
 // view
 show();
 function show() {
@@ -57,23 +54,23 @@ function calcColor(min, max, val) {
 function addBar(val) {
   parsed = parseInt(val);
   parsed
-    ? (numbers.push(parsed), (inputValue = null))
+    ? (numbers.push(parsed), calibrate())
     : alert("Please specify the bar you want to create");
   console.log(numbers);
   show();
 }
 function editBar() {
   chosenBar && inputValue
-    ? ((numbers[chosenBar] = inputValue),
-      (chosenBar = null),
-      (inputValue = null))
-    : (null, alert("no input value or chosen bar"));
+    ? ((numbers[chosenBar] = inputValue), calibrate())
+    : (null, calibrate(), alert("no input value or chosen bar"));
   show();
 }
 //
 function removeBar() {
-  chosenBar ? numbers.splice(chosenBar, 1) : alert("No bar is chosen");
-  chosenBar = null;
+  chosenBar
+    ? (numbers.splice(chosenBar, 1), calibrate())
+    : alert("No bar is chosen");
+  calibrate();
   show();
 }
 function activateBar(value) {
@@ -83,11 +80,14 @@ function activateBar(value) {
     ? ((chosenBar = [...value.parentElement.children].indexOf(value)),
       (buttonEdit.disabled = false),
       (buttonRemove.disabled = false))
-    : ((chosenBar = null),
+    : (calibrate(),
       (buttonEdit.disabled = true),
       (buttonRemove.disabled = true));
   console.log(chosenBar);
-  // console.log([...value.parentElement.children].indexOf(value));
-  // show();
-  //   numbers.slice(item);
+}
+function calibrate() {
+  (chosenBar = null), (inputValue = null);
+}
+function btnAble(val) {
+  (buttonEdit.disable = val), (buttonRemove.disable = val);
 }
