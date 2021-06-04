@@ -6,6 +6,10 @@ let numbers = [7, 3, 1, 5, 8];
 let chosenBar; // Variabel for hvilken stolpe som er valgt
 let inputValue; // Variabel for hva som er skrevet i input-feltet
 let borderCol;
+
+// const buttonEdit = document.getElementById("btnEdit");
+// const buttonRemove = document.querySelector("btnRemove");
+
 // view
 show();
 function show() {
@@ -22,9 +26,9 @@ function show() {
          <br />
          Verdi:
          <input type="number" min="1" max="10" oninput="inputValue = this.value" />
-         <button onclick="addBar(inputValue)">Legg til stolpe</button>
-         <button onclick="editBar()" >Endre valgt stolpe</button><br />
-         <button onclick="removeBar()">Fjerne valgt stolpe</button>
+         <button id="btnAdd" onclick="addBar(inputValue)">Legg til stolpe</button>
+         <button disabled id="btnEdit" onclick="editBar()" >Endre valgt stolpe</button><br />
+         <button disabled id="btnRemove" onclick="removeBar()">Fjerne valgt stolpe</button>
          `;
 }
 
@@ -73,9 +77,15 @@ function removeBar() {
   show();
 }
 function activateBar(value) {
+  const buttonEdit = document.getElementById("btnEdit");
+  const buttonRemove = document.getElementById("btnRemove");
   chosenBar !== [...value.parentElement.children].indexOf(value)
-    ? (chosenBar = [...value.parentElement.children].indexOf(value))
-    : (chosenBar = null);
+    ? ((chosenBar = [...value.parentElement.children].indexOf(value)),
+      (buttonEdit.disabled = false),
+      (buttonRemove.disabled = false))
+    : ((chosenBar = null),
+      (buttonEdit.disabled = true),
+      (buttonRemove.disabled = true));
   console.log(chosenBar);
   // console.log([...value.parentElement.children].indexOf(value));
   // show();
