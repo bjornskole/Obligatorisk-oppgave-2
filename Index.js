@@ -3,9 +3,9 @@ var contentDiv = document.getElementById("content");
 
 // model
 let numbers = [7, 3, 1, 5, 8];
-let chosenBar; // Variabel for hvilken stolpe som er valgt
+let chosenBar = "null"; // Variabel for hvilken stolpe som er valgt
+let prevBar;
 let inputValue; // Variabel for hva som er skrevet i input-feltet
-let borderCol;
 
 // view
 show();
@@ -16,7 +16,9 @@ function show() {
     svgInnerHtml += createBar(numbers[i], i + 1);
   }
   contentDiv.innerHTML = `
-         <svg  id="chart" width="500" viewBox="0 0 80 60">
+  <div id="page">
+  <div>
+         <svg id="chart" width="500" viewBox="0 0 80 60">
              ${svgInnerHtml}
          </svg><br/>
          Valgt stolpe: <i>ingen</i>
@@ -26,68 +28,7 @@ function show() {
          <button id="btnAdd" onclick="addBar(inputValue)">Legg til stolpe</button>
          <button disabled id="btnEdit" onclick="editBar()" >Endre valgt stolpe</button><br />
          <button disabled id="btnRemove" onclick="removeBar()">Fjerne valgt stolpe</button>
+         </div>
+         </div>
          `;
-}
-
-function createBar(number, barNo) {
-  const width = 8;
-  const spacing = 2;
-  let x = (barNo - 1) * (width + spacing);
-  let height = number * 10;
-  let y = 60 - height;
-  let color = calcColor(1, 10, barNo);
-  return `<rect style="border: blue solid 1px" onclick="activateBar(this)" width="${width}" height="${height}"
-                         x="${x}" y="${y}" fill="${color} "  ></rect>`;
-}
-
-function calcColor(min, max, val) {
-  var minHue = 240,
-    maxHue = 0;
-  var curPercent = (val - min) / (max - min);
-  var colString =
-    "hsl(" + (curPercent * (maxHue - minHue) + minHue) + ",100%,50%)";
-  return colString;
-}
-
-// class barController
-// controller
-function addBar(val) {
-  parsed = parseInt(val);
-  parsed
-    ? (numbers.push(parsed), calibrate())
-    : alert("Please specify the bar you want to create");
-  console.log(numbers);
-  show();
-}
-function editBar() {
-  chosenBar && inputValue
-    ? ((numbers[chosenBar] = inputValue), calibrate())
-    : (null, calibrate(), alert("no input value or chosen bar"));
-  show();
-}
-//
-function removeBar() {
-  chosenBar
-    ? (numbers.splice(chosenBar, 1), calibrate())
-    : alert("No bar is chosen");
-  calibrate();
-  show();
-}
-function activateBar(value) {
-  const buttonEdit = document.getElementById("btnEdit");
-  const buttonRemove = document.getElementById("btnRemove");
-  chosenBar !== [...value.parentElement.children].indexOf(value)
-    ? ((chosenBar = [...value.parentElement.children].indexOf(value)),
-      (buttonEdit.disabled = false),
-      (buttonRemove.disabled = false))
-    : (calibrate(),
-      (buttonEdit.disabled = true),
-      (buttonRemove.disabled = true));
-  console.log(chosenBar);
-}
-function calibrate() {
-  (chosenBar = null), (inputValue = null);
-}
-function btnAble(val) {
-  (buttonEdit.disable = val), (buttonRemove.disable = val);
 }
