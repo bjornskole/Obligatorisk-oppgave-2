@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<title>Test Suite</title>
+<link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.15.0.css" />
+<body>
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+  <script src="https://code.jquery.com/qunit/qunit-2.15.0.js"></script>
+  <script type="text/javascript" src="controller.js"></script>
+  <script>
+    // hjelpevariable for både view og controller
+    // let contentDiv = document.getElementById("content");
+    // model
+    let numbers = [7, 3, 1, 5, 8];
+    let showBar = "ingen";
+    let chosenBar = null;
+    let inputValue;
+    let barNo;
+    let res;
+
+    // Test createBar
+    QUnit.test("test of createBar", function (assert) {
+      barNo = 3;
+      inputValue = 5;
+      numbers = [7, 3, 1, 5, 8];
+      chosenBar = 1;
+      res = `<rect id=\"id5\" value=\"5\" onclick=\"selectBar(5)\" width=\"8\" height=\"50\"
+  x=\"40\" y=\"10\" fill=\"hsl(133.33333333333334,100%,50%)\" stroke=\"none\";  ></rect>`;
+      let actual = createBar(5, 5);
+      let expected = res;
+
+      assert.deepEqual(actual, expected, "createBar works as expected");
+    });
+
+    // Test calcColor
+    QUnit.test("test of calcColor", function (assert) {
+      res;
+      barNo = 3;
+      inputValue = 5;
+      numbers = [7, 3, 1, 5, 8];
+      chosenBar = 1;
+
+      let actual = calcColor(1, 10, barNo);
+      let expected = "hsl(186.66666666666669,100%,50%)";
+
+      assert.deepEqual(
+        actual,
+        expected,
+        "this test returns the expected color code"
+      );
+    });
+
+    //Test removeBar
+    QUnit.test(
+      "Does the child func condition return val after passing strike?",
+      function (assert) {
+        numbers = [7, 3, 1, 5, 8];
+        chosenBar = 1;
+        removeBar();
+        let actual = numbers;
+        let expected = [3, 1, 5, 8];
+
+        assert.deepEqual(
+          actual,
+          expected,
+          "Child func condition passes strike and returns val as expected"
+        );
+      }
+    );
+    // Test editBar
+    QUnit.test("Checks if choosenBar is set to inputValue", function (assert) {
+      inputValue = 5;
+      numbers = [7, 3, 1, 5, 8];
+      chosenBar = 1;
+      editBar();
+      let actual = numbers;
+      let expected = [5, 3, 1, 5, 8];
+
+      assert.deepEqual(actual, expected, "ChoosenBar is set to inputValue ");
+    });
+
+    // Test addBar
+    QUnit.test("Checks if choosenBar is added", function (assert) {
+      inputValue = 5;
+      numbers = [7, 3, 1, 5, 8];
+      chosenBar = 1;
+      addBar(inputValue);
+      let actual = numbers;
+      let expected = [7, 3, 1, 5, 8, 5];
+
+      assert.deepEqual(actual, expected, "ChoosenBar is added ");
+    });
+
+    function show() {}
+
+    // Test selectBar
+    QUnit.test("test selectBar on index 3", function (assert) {
+      barNo = 3;
+      inputValue = 5;
+      numbers = [7, 3, 1, 5, 8];
+      chosenBar = 1;
+      selectBar(barNo);
+      let actual = barNo;
+      let expected = 3;
+
+      assert.deepEqual(actual, expected, "bar 3 is selected ");
+    });
+
+    // Test calibrate
+    QUnit.test("test calibrate bar", function (assert) {
+      barNo = 3;
+      inputValue = 5;
+      numbers = [7, 3, 1, 5, 8];
+      chosenBar = 1;
+      calibrate();
+      let actual = chosenBar && inputValue;
+      let expected = chosenBar && inputValue === false;
+
+      assert.deepEqual(
+        actual,
+        expected,
+        "inputValue and chosenBar is set to false "
+      );
+    });
+
+    function show() {}
+  </script>
+</body>
