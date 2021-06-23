@@ -18,20 +18,6 @@
     let barNo;
     let res;
 
-    // Test createBar
-    QUnit.test("test of createBar", function (assert) {
-      barNo = 3;
-      inputValue = 5;
-      numbers = [7, 3, 1, 5, 8];
-      chosenBar = 1;
-      res = `<rect id=\"id5\" value=\"5\" onclick=\"selectBar(5)\" width=\"8\" height=\"50\"
-  x=\"40\" y=\"10\" fill=\"hsl(133.33333333333334,100%,50%)\" stroke=\"none\";  ></rect>`;
-      let actual = createBar(5, 5);
-      let expected = res;
-
-      assert.deepEqual(actual, expected, "createBar works as expected");
-    });
-
     // Test calcColor
     QUnit.test("test of calcColor", function (assert) {
       res;

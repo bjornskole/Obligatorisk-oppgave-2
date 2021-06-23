@@ -8,6 +8,18 @@ let chosenBar = null; // Variabel for hvilken stolpe som er valgt
 let inputValue; // Variabel for hva som er skrevet i input-feltet
 
 // view
+function createBar(number, barNo) {
+  const width = 8;
+  const spacing = 2;
+  let x = (barNo - 1) * (width + spacing);
+  let height = number * 10;
+  let y = 60 - height;
+  let color = calcColor(1, 10, barNo);
+  let stroke = chosenBar == barNo ? "black" : "none";
+  let res = `<rect id="id${barNo}" value="${barNo}" onclick="selectBar(${barNo})" width="${width}" height="${height}"
+  x="${x}" y="${y}" fill="${color}" stroke="${stroke}";  ></rect>`;
+  return res;
+}
 show();
 function show() {
   let svgInnerHtml = "";
